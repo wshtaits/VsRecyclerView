@@ -36,15 +36,9 @@ abstract class ItemsAdapter<in AdaptableData>(@LayoutRes private val layoutResId
     }
 
     internal fun createAdapterItems(adaptableDataCollection: Collection<AdaptableData>): List<AdapterItem<*>> =
-        adaptableDataCollection.map { adaptableData ->
-            AdapterItem(
-                adaptableData,
-                this
-            )
-        }
+        adaptableDataCollection.map { adaptableData -> AdapterItem(adaptableData, this) }
 
-    internal fun createAdapterItem(data: AdaptableData): AdapterItem<*> =
-        AdapterItem(data, this)
+    internal fun createAdapterItem(data: AdaptableData): AdapterItem<*> = AdapterItem(data, this)
 
     open fun getItemId(data: AdaptableData): Long = RecyclerView.NO_ID
 

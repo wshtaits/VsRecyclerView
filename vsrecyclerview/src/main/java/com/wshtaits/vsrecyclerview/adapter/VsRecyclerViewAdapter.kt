@@ -17,10 +17,7 @@
 package com.wshtaits.vsrecyclerview.adapter
 
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
-import com.wshtaits.vsrecyclerview.adapter.itemsadapters.SimpleItemsAdapter
-import com.wshtaits.vsrecyclerview.adapter.itemsadapters.SimpleNoDataItemsAdapter
 import com.wshtaits.vsrecyclerview.adapter.itemsadapters.base.AdapterItem
 import com.wshtaits.vsrecyclerview.adapter.itemsadapters.base.ItemViewHolder
 import com.wshtaits.vsrecyclerview.adapter.itemsadapters.base.ItemsAdapter
@@ -49,37 +46,8 @@ class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun <AdaptableData> setItem(
-        data: AdaptableData,
-        @LayoutRes itemLayoutResId: Int,
-        onCreateAction: (ItemViewHolder) -> Unit,
-        onBindAction: (ItemViewHolder, AdaptableData) -> Unit
-    ) {
-        setItem(data,
-            SimpleItemsAdapter(
-                itemLayoutResId,
-                onCreateAction,
-                onBindAction
-            )
-        )
-    }
-
     fun setNoDataItem(adapter: NoDataItemsAdapter) {
         setItem(Unit, adapter)
-    }
-
-    fun setNoDataItem(
-        @LayoutRes itemLayoutResId: Int,
-        onCreateAction: (ItemViewHolder) -> Unit,
-        onBindAction: (ItemViewHolder) -> Unit
-    ) {
-        setNoDataItem(
-            SimpleNoDataItemsAdapter(
-                itemLayoutResId,
-                onCreateAction,
-                onBindAction
-            )
-        )
     }
 
     fun <AdaptableData> setItems(dataCollection: Collection<AdaptableData>, adapter: ItemsAdapter<AdaptableData>) {
@@ -89,37 +57,8 @@ class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun <AdaptableData> setItems(
-        dataCollection: Collection<AdaptableData>,
-        @LayoutRes itemLayoutResId: Int,
-        onCreateAction: (ItemViewHolder) -> Unit,
-        onBindAction: (ItemViewHolder, AdaptableData) -> Unit
-    ) {
-        setItems(dataCollection,
-            SimpleItemsAdapter(
-                itemLayoutResId,
-                onCreateAction,
-                onBindAction
-            )
-        )
-    }
-
     fun setNoDataItems(adapter: NoDataItemsAdapter, itemCount: Int) {
         setItems(Array(itemCount, { Unit }).asList(), adapter)
-    }
-
-    fun setNoDataItems(
-        @LayoutRes itemLayoutResId: Int,
-        itemCount: Int,
-        onCreateAction: (ItemViewHolder) -> Unit,
-        onBindAction: (ItemViewHolder) -> Unit
-    ) {
-        setNoDataItems(
-            SimpleNoDataItemsAdapter(
-                itemLayoutResId,
-                onCreateAction,
-                onBindAction
-            ), itemCount)
     }
 
     fun <AdaptableData> insertItem(position: Int, data: AdaptableData, adapter: ItemsAdapter<AdaptableData>) {
@@ -129,39 +68,8 @@ class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
         notifyItemInserted(position)
     }
 
-    fun <AdaptableData> insertItem(
-        position: Int,
-        data: AdaptableData,
-        @LayoutRes itemLayoutResId: Int,
-        onCreateAction: (ItemViewHolder) -> Unit,
-        onBindAction: (ItemViewHolder, AdaptableData) -> Unit
-    ) {
-        insertItem(position, data,
-            SimpleItemsAdapter(
-                itemLayoutResId,
-                onCreateAction,
-                onBindAction
-            )
-        )
-    }
-
     fun insertNoDataItem(position: Int, adapter: NoDataItemsAdapter) {
         insertItem(position, Unit, adapter)
-    }
-
-    fun insertNoDataItem(
-        position: Int,
-        @LayoutRes itemLayoutResId: Int,
-        onCreateAction: (ItemViewHolder) -> Unit,
-        onBindAction: (ItemViewHolder) -> Unit
-    ) {
-        insertNoDataItem(position,
-            SimpleNoDataItemsAdapter(
-                itemLayoutResId,
-                onCreateAction,
-                onBindAction
-            )
-        )
     }
 
     fun <AdaptableData> insertItems(
@@ -175,42 +83,11 @@ class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
         notifyItemRangeInserted(position, adapterItems.size)
     }
 
-    fun <AdaptableData> insertItems(
-        position: Int,
-        dataCollection: Collection<AdaptableData>,
-        @LayoutRes itemLayoutResId: Int,
-        onCreateAction: (ItemViewHolder) -> Unit,
-        onBindAction: (ItemViewHolder, AdaptableData) -> Unit
-    ) {
-        insertItems(position, dataCollection,
-            SimpleItemsAdapter(
-                itemLayoutResId,
-                onCreateAction,
-                onBindAction
-            )
-        )
-    }
-
     fun insertNoDataItems(position: Int, adapter: NoDataItemsAdapter, itemCount: Int) {
         insertItems(position, Array(itemCount, { Unit }).asList(), adapter)
     }
 
-    fun insertNoDataItems(
-        position: Int,
-        @LayoutRes itemLayoutResId: Int,
-        itemCount: Int,
-        onCreateAction: (ItemViewHolder) -> Unit,
-        onBindAction: (ItemViewHolder) -> Unit
-    ) {
-        insertNoDataItems(position,
-            SimpleNoDataItemsAdapter(
-                itemLayoutResId,
-                onCreateAction,
-                onBindAction
-            ), itemCount)
-    }
-
-    fun <AdaptableData> changeItem(position: Int, data: AdaptableData, adapter: ItemsAdapter<AdaptableData>) {
+    fun <AdaptableData> changeToItem(position: Int, data: AdaptableData, adapter: ItemsAdapter<AdaptableData>) {
         val adapterItem = adapter.createAdapterItem(data)
         items[position] = adapterItem
         deleteUnusedAdapters()
@@ -218,42 +95,11 @@ class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
         notifyItemChanged(position)
     }
 
-    fun <AdaptableData> changeItem(
-        position: Int,
-        data: AdaptableData,
-        @LayoutRes itemLayoutResId: Int,
-        onCreateAction: (ItemViewHolder) -> Unit,
-        onBindAction: (ItemViewHolder, AdaptableData) -> Unit
-    ) {
-        changeItem(position, data,
-            SimpleItemsAdapter(
-                itemLayoutResId,
-                onCreateAction,
-                onBindAction
-            )
-        )
-    }
-
     fun changeToNoDataItem(position: Int, adapter: NoDataItemsAdapter) {
-        changeItem(position, Unit, adapter)
+        changeToItem(position, Unit, adapter)
     }
 
-    fun changeToNoDataItem(
-        position: Int,
-        @LayoutRes itemLayoutResId: Int,
-        onCreateAction: (ItemViewHolder) -> Unit,
-        onBindAction: (ItemViewHolder) -> Unit
-    ) {
-        changeToNoDataItem(position,
-            SimpleNoDataItemsAdapter(
-                itemLayoutResId,
-                onCreateAction,
-                onBindAction
-            )
-        )
-    }
-
-    fun <AdaptableData> changeItems(
+    fun <AdaptableData> changeToItems(
         position: Int,
         dataCollection: Collection<AdaptableData>,
         adapter: ItemsAdapter<AdaptableData>
@@ -267,39 +113,8 @@ class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
         notifyItemRangeChanged(position, adapterItems.size)
     }
 
-    fun <AdaptableData> changeItems(
-        position: Int,
-        dataCollection: Collection<AdaptableData>,
-        @LayoutRes itemLayoutResId: Int,
-        onCreateAction: (ItemViewHolder) -> Unit,
-        onBindAction: (ItemViewHolder, AdaptableData) -> Unit
-    ) {
-        changeItems(position, dataCollection,
-            SimpleItemsAdapter(
-                itemLayoutResId,
-                onCreateAction,
-                onBindAction
-            )
-        )
-    }
-
     fun changeToNoDataItems(position: Int, adapter: NoDataItemsAdapter, itemCount: Int) {
-        changeItems(position, Array(itemCount, { Unit }).asList(), adapter)
-    }
-
-    fun changeToNoDataItems(
-        position: Int,
-        @LayoutRes itemLayoutResId: Int,
-        itemCount: Int,
-        onCreateAction: (ItemViewHolder) -> Unit,
-        onBindAction: (ItemViewHolder) -> Unit
-    ) {
-        changeToNoDataItems(position,
-            SimpleNoDataItemsAdapter(
-                itemLayoutResId,
-                onCreateAction,
-                onBindAction
-            ), itemCount)
+        changeToItems(position, Array(itemCount, { Unit }).asList(), adapter)
     }
 
     fun removeItem(item: Any) {

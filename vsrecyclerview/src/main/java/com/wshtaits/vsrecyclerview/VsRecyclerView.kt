@@ -22,6 +22,8 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wshtaits.vsrecyclerview.adapter.VsRecyclerViewAdapter
+import com.wshtaits.vsrecyclerview.adapter.itemsadapters.SimpleItemsAdapter
+import com.wshtaits.vsrecyclerview.adapter.itemsadapters.SimpleNoDataItemsAdapter
 import com.wshtaits.vsrecyclerview.adapter.itemsadapters.base.ItemViewHolder
 import com.wshtaits.vsrecyclerview.adapter.itemsadapters.base.ItemsAdapter
 import com.wshtaits.vsrecyclerview.adapter.itemsadapters.base.NoDataItemsAdapter
@@ -55,7 +57,10 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder, AdaptableData) -> Unit
     ) {
-        vsAdapter.setItem(data, itemLayoutResId, onCreateAction, onBindAction)
+        vsAdapter.setItem(
+            data,
+            SimpleItemsAdapter(itemLayoutResId, onCreateAction, onBindAction)
+        )
     }
 
     fun <AdaptableData> setItems(dataCollection: Collection<AdaptableData>, adapter: ItemsAdapter<AdaptableData>) {
@@ -68,7 +73,10 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder, AdaptableData) -> Unit
     ) {
-        vsAdapter.setItems(dataCollection, itemLayoutResId, onCreateAction, onBindAction)
+        vsAdapter.setItems(
+            dataCollection,
+            SimpleItemsAdapter(itemLayoutResId, onCreateAction, onBindAction)
+        )
     }
 
     fun setNoDataItem(adapter: NoDataItemsAdapter) {
@@ -80,7 +88,9 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder) -> Unit = {}
     ) {
-        vsAdapter.setNoDataItem(itemLayoutResId, onCreateAction, onBindAction)
+        vsAdapter.setNoDataItem(
+            SimpleNoDataItemsAdapter(itemLayoutResId, onCreateAction, onBindAction)
+        )
     }
 
     fun setNoDataItems(adapter: NoDataItemsAdapter, itemCount: Int) {
@@ -93,7 +103,10 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder) -> Unit = {}
     ) {
-        vsAdapter.setNoDataItems(itemLayoutResId, itemCount, onCreateAction, onBindAction)
+        vsAdapter.setNoDataItems(
+            SimpleNoDataItemsAdapter(itemLayoutResId, onCreateAction, onBindAction),
+            itemCount
+        )
     }
 
     fun <AdaptableData> insertItem(data: AdaptableData, adapter: ItemsAdapter<AdaptableData>) {
@@ -110,7 +123,11 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder, AdaptableData) -> Unit
     ) {
-        vsAdapter.insertItem(vsAdapter.itemCount, data, itemLayoutResId, onCreateAction, onBindAction)
+        vsAdapter.insertItem(
+            vsAdapter.itemCount,
+            data,
+            SimpleItemsAdapter(itemLayoutResId, onCreateAction, onBindAction)
+        )
     }
 
     fun <AdaptableData> insertItem(
@@ -120,7 +137,11 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder, AdaptableData) -> Unit
     ) {
-        vsAdapter.insertItem(position, data, itemLayoutResId, onCreateAction, onBindAction)
+        vsAdapter.insertItem(
+            position,
+            data,
+            SimpleItemsAdapter(itemLayoutResId, onCreateAction, onBindAction)
+        )
     }
 
     fun <AdaptableData> insertItems(dataCollection: Collection<AdaptableData>, adapter: ItemsAdapter<AdaptableData>) {
@@ -141,7 +162,11 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder, AdaptableData) -> Unit
     ) {
-        vsAdapter.insertItems(vsAdapter.itemCount, dataCollection, itemLayoutResId, onCreateAction, onBindAction)
+        vsAdapter.insertItems(
+            vsAdapter.itemCount,
+            dataCollection,
+            SimpleItemsAdapter(itemLayoutResId, onCreateAction, onBindAction)
+        )
     }
 
     fun <AdaptableData> insertItems(
@@ -151,7 +176,11 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder, AdaptableData) -> Unit
     ) {
-        vsAdapter.insertItems(position, dataCollection, itemLayoutResId, onCreateAction, onBindAction)
+        vsAdapter.insertItems(
+            position,
+            dataCollection,
+            SimpleItemsAdapter(itemLayoutResId, onCreateAction, onBindAction)
+        )
     }
 
     fun insertNoDataItem(adapter: NoDataItemsAdapter) {
@@ -167,7 +196,10 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder) -> Unit = {}
     ) {
-        vsAdapter.insertNoDataItem(vsAdapter.itemCount, itemLayoutResId, onCreateAction, onBindAction)
+        vsAdapter.insertNoDataItem(
+            vsAdapter.itemCount,
+            SimpleNoDataItemsAdapter(itemLayoutResId, onCreateAction, onBindAction)
+        )
     }
 
     fun insertNoDataItem(
@@ -176,7 +208,10 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder) -> Unit = {}
     ) {
-        vsAdapter.insertNoDataItem(position, itemLayoutResId, onCreateAction, onBindAction)
+        vsAdapter.insertNoDataItem(
+            position,
+            SimpleNoDataItemsAdapter(itemLayoutResId, onCreateAction, onBindAction)
+        )
     }
 
     fun insertNoDataItems(adapter: NoDataItemsAdapter, itemCount: Int) {
@@ -193,7 +228,11 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder) -> Unit = {}
     ) {
-        vsAdapter.insertNoDataItems(vsAdapter.itemCount, itemLayoutResId, itemCount, onCreateAction, onBindAction)
+        vsAdapter.insertNoDataItems(
+            vsAdapter.itemCount,
+            SimpleNoDataItemsAdapter(itemLayoutResId, onCreateAction, onBindAction),
+            itemCount
+        )
     }
 
     fun insertNoDataItems(
@@ -203,11 +242,15 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder) -> Unit = {}
     ) {
-        vsAdapter.insertNoDataItems(position, itemLayoutResId, itemCount, onCreateAction, onBindAction)
+        vsAdapter.insertNoDataItems(
+            position,
+            SimpleNoDataItemsAdapter(itemLayoutResId, onCreateAction, onBindAction),
+            itemCount
+        )
     }
 
     fun <AdaptableData> changeToItem(position: Int, data: AdaptableData, adapter: ItemsAdapter<AdaptableData>) {
-        vsAdapter.changeItem(position, data, adapter)
+        vsAdapter.changeToItem(position, data, adapter)
     }
 
     fun <AdaptableData> changeToItem(
@@ -217,7 +260,11 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder, AdaptableData) -> Unit
     ) {
-        vsAdapter.changeItem(position, data, itemLayoutResId, onCreateAction, onBindAction)
+        vsAdapter.changeToItem(
+            position,
+            data,
+            SimpleItemsAdapter(itemLayoutResId, onCreateAction, onBindAction)
+        )
     }
 
     fun <AdaptableData> changeToItems(
@@ -225,7 +272,7 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         dataCollection: Collection<AdaptableData>,
         adapter: ItemsAdapter<AdaptableData>
     ) {
-        vsAdapter.changeItems(position, dataCollection, adapter)
+        vsAdapter.changeToItems(position, dataCollection, adapter)
     }
 
     fun <AdaptableData> changeToItems(
@@ -235,7 +282,11 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder, AdaptableData) -> Unit
     ) {
-        vsAdapter.changeItems(position, dataCollection, itemLayoutResId, onCreateAction, onBindAction)
+        vsAdapter.changeToItems(
+            position,
+            dataCollection,
+            SimpleItemsAdapter(itemLayoutResId, onCreateAction, onBindAction)
+        )
     }
 
     fun changeToNoDataItem(position: Int, adapter: NoDataItemsAdapter) {
@@ -248,7 +299,10 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder) -> Unit = {}
     ) {
-        vsAdapter.changeToNoDataItem(position, itemLayoutResId, onCreateAction, onBindAction)
+        vsAdapter.changeToNoDataItem(
+            position,
+            SimpleNoDataItemsAdapter(itemLayoutResId, onCreateAction, onBindAction)
+        )
     }
 
     fun changeToNoDataItems(position: Int, adapter: NoDataItemsAdapter, itemCount: Int) {
@@ -262,7 +316,11 @@ class VsRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(cont
         onCreateAction: (ItemViewHolder) -> Unit = {},
         onBindAction: (ItemViewHolder) -> Unit = {}
     ) {
-        vsAdapter.changeToNoDataItems(position, itemLayoutResId, itemCount, onCreateAction, onBindAction)
+        vsAdapter.changeToNoDataItems(
+            position,
+            SimpleNoDataItemsAdapter(itemLayoutResId, onCreateAction, onBindAction),
+            itemCount
+        )
     }
 
     fun removeItem(item: Any) {
