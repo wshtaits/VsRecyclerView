@@ -174,12 +174,12 @@ Example:
 ```kotlin
 // WRONG:
 recyclerView.insertItems(names, R.layout.item_name) { holder, name ->
-    holder.itemView.name_tv = name
+    holder.itemView.name_tv.text = name
 }
 
 // RIGHT:
 recyclerView.insertItems(names, R.layout.item_name) { holder, name ->
-    holder.name_tv = name
+    holder.name_tv.text = name
 }
 ```
 But if your xml layout contains only one view, then you can refer to it using the `ViewHolder.itemView` or `ViewHolder.containerView` properties:
