@@ -84,9 +84,9 @@ class VsRecyclerView {
 
 ## Important
 
-### ItemAdapters
-This is not about `RecyclerView.Adapter`, but about library `ItemAdapter`s. They are not creating alone for the entire `RecyclerView`, but for each type of element.
-Each time you don’t pass an `ItemAdapter` explicitly, `VsRecyclerView` creates a new one with its own `viewType` (based on the `hashCode()` of the adapter) and therefore with a separate `ViewHolderPool`.
+### ItemsAdapters
+This is not about `RecyclerView.Adapter`, but about library `ItemsAdapter`s. They are not creating alone for the entire `RecyclerView`, but for each type of element.
+Each time you don’t pass an `ItemsAdapter` explicitly, `VsRecyclerView` creates a new one with its own `viewType` (based on the `hashCode()` of the adapter) and therefore with a separate `ViewHolderPool`.
 For example, two different adapters are creating here:
 ```kotlin
 with(vsRecyclerView) {
@@ -134,7 +134,7 @@ fun showNames(names: List<String>) {
 }
 ```
 
-**Template `ItemsAdapter`s example:**
+**Template ItemsAdapters example:**
 ```kotlin
 class SimpleItemsAdapter<AdaptableData>(
     @LayoutRes private val layoutResId: Int,
