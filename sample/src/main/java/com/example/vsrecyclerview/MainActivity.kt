@@ -30,15 +30,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         with(vs_recycler_view) {
-            insertItem("Contacts", R.layout.item_title) { holder, title ->
-                (holder.itemView as TextView).text = title
+            insertItemToEnd("Contacts", R.layout.item_title) { title ->
+                (itemView as TextView).text = title
             }
 
-            insertNoDataItem(R.layout.item_divider)
+            insertNoDataItemToEnd(R.layout.item_divider)
 
-            insertItems(contacts, R.layout.item_contact) { holder, contact ->
-                holder.name_tv.text = contact.name
-                holder.phone_tv.text = contact.phone
+            insertItemsToEnd(contacts, R.layout.item_contact) { contact ->
+                name_tv.text = contact.name
+                phone_tv.text = contact.phone
             }
         }
     }

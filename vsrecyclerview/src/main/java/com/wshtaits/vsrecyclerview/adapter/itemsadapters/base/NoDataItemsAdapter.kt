@@ -16,11 +16,13 @@
 
 package com.wshtaits.vsrecyclerview.adapter.itemsadapters.base
 
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 
-open class NoDataItemsAdapter(@LayoutRes private val layoutResId: Int) : ItemsAdapter<Unit>(layoutResId) {
+open class NoDataItemsAdapter : ItemsAdapter<Unit> {
 
-    override fun onBindViewHolder(holder: ItemViewHolder, data: Unit) {
-        //do nothing
-    }
+    constructor(@LayoutRes layoutResId: Int) : super(layoutResId)
+
+    constructor(itemViewFactoryFunction: (parent: ViewGroup) -> View) : super(itemViewFactoryFunction)
 }

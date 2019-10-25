@@ -16,21 +16,36 @@
 
 package com.wshtaits.vsrecyclerview.adapter.itemsadapters
 
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.wshtaits.vsrecyclerview.adapter.itemsadapters.base.ItemViewHolder
 import com.wshtaits.vsrecyclerview.adapter.itemsadapters.base.ItemsAdapter
 
-open class SimpleItemsAdapter<AdaptableData>(
-    @LayoutRes private val layoutResId: Int,
-    private val onCreateAction: (ItemViewHolder) -> Unit = {},
-    private val onBindAction: (ItemViewHolder, AdaptableData) -> Unit = { _, _ -> }
-) : ItemsAdapter<AdaptableData>(layoutResId) {
+open class SimpleItemsAdapter<AdaptableData> : ItemsAdapter<AdaptableData> {
 
-    override fun onCreateViewHolder(holder: ItemViewHolder) {
-        onCreateAction(holder)
+    private val onCreateAction: ItemViewHolder.() -> Unit
+    private val onBindAction: ItemViewHolder.(AdaptableData) -> Unit
+
+    constructor(
+        @LayoutRes layoutResId: Int,
+        onCreateAction: ItemViewHolder.() -> Unit = {},
+        onBindAction: ItemViewHolder.(AdaptableData) -> Unit = { _ -> }
+    ) : super(layoutResId) {
+        this.onCreateAction = onCreateAction
+        this.onBindAction = onBindAction
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, data: AdaptableData) {
-        onBindAction(holder, data)
+    constructor(
+        itemViewFactoryFunction: (parent: ViewGroup) -> View,
+        onCreateAction: ItemViewHolder.() -> Unit = {},
+        onBindAction: ItemViewHolder.(AdaptableData) -> Unit = { _ -> }
+    ) : super(itemViewFactoryFunction) {
+        this.onCreateAction = onCreateAction
+        this.onBindAction = onBindAction
     }
+
+    override fun ItemViewHolder.onCreateViewHolder(): Unit = onCreateAction()
+
+    override fun ItemViewHolder.onBindViewHolder(data: AdaptableData): Unit = onBindAction(data)
 }

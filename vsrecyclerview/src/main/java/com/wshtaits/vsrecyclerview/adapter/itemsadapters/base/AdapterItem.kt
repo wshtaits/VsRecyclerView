@@ -24,7 +24,5 @@ internal class AdapterItem<AdaptableData>(val data: AdaptableData, private val a
     val viewType: Int
         get() = adapter.viewType
 
-    internal fun bind(viewHolder: ItemViewHolder) {
-        adapter.onBindViewHolder(viewHolder, data)
-    }
+    internal fun bind(viewHolder: ItemViewHolder): Unit = with(adapter) { viewHolder.onBindViewHolder(data) }
 }

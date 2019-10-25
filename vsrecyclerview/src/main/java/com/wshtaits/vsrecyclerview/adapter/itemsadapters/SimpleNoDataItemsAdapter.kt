@@ -16,21 +16,36 @@
 
 package com.wshtaits.vsrecyclerview.adapter.itemsadapters
 
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.wshtaits.vsrecyclerview.adapter.itemsadapters.base.ItemViewHolder
 import com.wshtaits.vsrecyclerview.adapter.itemsadapters.base.NoDataItemsAdapter
 
-open class SimpleNoDataItemsAdapter(
-    @LayoutRes private val layoutResId: Int,
-    private val onCreateAction: (ItemViewHolder) -> Unit = {},
-    private val onBindAction: (ItemViewHolder) -> Unit = {}
-) : NoDataItemsAdapter(layoutResId) {
+open class SimpleNoDataItemsAdapter : NoDataItemsAdapter {
 
-    override fun onCreateViewHolder(holder: ItemViewHolder) {
-        onCreateAction(holder)
+    private val onCreateAction: ItemViewHolder.() -> Unit
+    private val onBindAction: ItemViewHolder.() -> Unit
+
+    constructor(
+        @LayoutRes layoutResId: Int,
+        onCreateAction: ItemViewHolder.() -> Unit = {},
+        onBindAction: ItemViewHolder.() -> Unit = {}
+    ) : super(layoutResId) {
+        this.onCreateAction = onCreateAction
+        this.onBindAction = onBindAction
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, data: Unit) {
-        onBindAction(holder)
+    constructor(
+        itemViewFactoryFunction: (parent: ViewGroup) -> View,
+        onCreateAction: ItemViewHolder.() -> Unit = {},
+        onBindAction: ItemViewHolder.() -> Unit = {}
+    ) : super(itemViewFactoryFunction) {
+        this.onCreateAction = onCreateAction
+        this.onBindAction = onBindAction
     }
+
+    override fun ItemViewHolder.onCreateViewHolder(): Unit = onCreateAction()
+
+    override fun ItemViewHolder.onBindViewHolder(data: Unit): Unit = onBindAction()
 }

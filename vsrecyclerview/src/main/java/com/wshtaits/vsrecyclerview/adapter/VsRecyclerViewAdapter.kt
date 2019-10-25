@@ -23,7 +23,7 @@ import com.wshtaits.vsrecyclerview.adapter.itemsadapters.base.ItemViewHolder
 import com.wshtaits.vsrecyclerview.adapter.itemsadapters.base.ItemsAdapter
 import com.wshtaits.vsrecyclerview.adapter.itemsadapters.base.NoDataItemsAdapter
 
-class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
+internal class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
 
     private var items = mutableListOf<AdapterItem<*>>()
     private var viewTypeToItemsAdapter = mutableMapOf<Int, ItemsAdapter<*>>()
@@ -46,9 +46,7 @@ class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun setNoDataItem(adapter: NoDataItemsAdapter) {
-        setItem(Unit, adapter)
-    }
+    fun setNoDataItem(adapter: NoDataItemsAdapter): Unit = setItem(Unit, adapter)
 
     fun <AdaptableData> setItems(dataCollection: Collection<AdaptableData>, adapter: ItemsAdapter<AdaptableData>) {
         clearItems()
@@ -57,9 +55,8 @@ class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun setNoDataItems(adapter: NoDataItemsAdapter, itemCount: Int) {
+    fun setNoDataItems(adapter: NoDataItemsAdapter, itemCount: Int): Unit =
         setItems(Array(itemCount, { Unit }).asList(), adapter)
-    }
 
     fun <AdaptableData> insertItem(position: Int, data: AdaptableData, adapter: ItemsAdapter<AdaptableData>) {
         val adapterItem = adapter.createAdapterItem(data)
@@ -68,9 +65,7 @@ class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
         notifyItemInserted(position)
     }
 
-    fun insertNoDataItem(position: Int, adapter: NoDataItemsAdapter) {
-        insertItem(position, Unit, adapter)
-    }
+    fun insertNoDataItem(position: Int, adapter: NoDataItemsAdapter): Unit = insertItem(position, Unit, adapter)
 
     fun <AdaptableData> insertItems(
         position: Int,
@@ -83,9 +78,8 @@ class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
         notifyItemRangeInserted(position, adapterItems.size)
     }
 
-    fun insertNoDataItems(position: Int, adapter: NoDataItemsAdapter, itemCount: Int) {
+    fun insertNoDataItems(position: Int, adapter: NoDataItemsAdapter, itemCount: Int): Unit =
         insertItems(position, Array(itemCount, { Unit }).asList(), adapter)
-    }
 
     fun <AdaptableData> changeToItem(position: Int, data: AdaptableData, adapter: ItemsAdapter<AdaptableData>) {
         val adapterItem = adapter.createAdapterItem(data)
@@ -95,9 +89,7 @@ class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
         notifyItemChanged(position)
     }
 
-    fun changeToNoDataItem(position: Int, adapter: NoDataItemsAdapter) {
-        changeToItem(position, Unit, adapter)
-    }
+    fun changeToNoDataItem(position: Int, adapter: NoDataItemsAdapter): Unit = changeToItem(position, Unit, adapter)
 
     fun <AdaptableData> changeToItems(
         position: Int,
@@ -113,9 +105,8 @@ class VsRecyclerViewAdapter : RecyclerView.Adapter<ItemViewHolder>() {
         notifyItemRangeChanged(position, adapterItems.size)
     }
 
-    fun changeToNoDataItems(position: Int, adapter: NoDataItemsAdapter, itemCount: Int) {
+    fun changeToNoDataItems(position: Int, adapter: NoDataItemsAdapter, itemCount: Int): Unit =
         changeToItems(position, Array(itemCount, { Unit }).asList(), adapter)
-    }
 
     fun removeItem(item: Any) {
         val removingItemPosition = items.indexOfFirst { adapterItem -> adapterItem.data == item }

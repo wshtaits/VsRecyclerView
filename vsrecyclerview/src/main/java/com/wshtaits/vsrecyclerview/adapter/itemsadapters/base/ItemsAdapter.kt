@@ -16,22 +16,29 @@
 
 package com.wshtaits.vsrecyclerview.adapter.itemsadapters.base
 
-import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class ItemsAdapter<in AdaptableData>(@LayoutRes private val layoutResId: Int) {
+abstract class ItemsAdapter<in AdaptableData> {
 
     val viewType by lazy { hashCode() }
 
+    private val itemViewFactory: ItemViewFactory
+
+    constructor(@LayoutRes layoutResId: Int) {
+        itemViewFactory = ItemViewFactory(layoutResId)
+    }
+
+    constructor(itemViewFactoryFunction: (parent: ViewGroup) -> View) {
+        itemViewFactory = ItemViewFactory(itemViewFactoryFunction)
+    }
+
     internal fun createViewHolder(parent: ViewGroup): ItemViewHolder {
-        val itemView =
-            LayoutInflater
-                .from(parent.context)
-                .inflate(layoutResId, parent, false)
+        val itemView = itemViewFactory.createItemView(parent)
         val itemViewHolder = ItemViewHolder(itemView)
-        onCreateViewHolder(itemViewHolder)
+        itemViewHolder.onCreateViewHolder()
         return itemViewHolder
     }
 
@@ -42,9 +49,7 @@ abstract class ItemsAdapter<in AdaptableData>(@LayoutRes private val layoutResId
 
     open fun getItemId(data: AdaptableData): Long = RecyclerView.NO_ID
 
-    open fun onCreateViewHolder(holder: ItemViewHolder) {
-        //stub
-    }
+    open fun ItemViewHolder.onCreateViewHolder() { /* stub */ }
 
-    abstract fun onBindViewHolder(holder: ItemViewHolder, data: AdaptableData)
+    open fun ItemViewHolder.onBindViewHolder(data: AdaptableData) { /* stub */ }
 }
